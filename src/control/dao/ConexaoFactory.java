@@ -1,12 +1,8 @@
-package modelDAO;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+package control.dao;
 
 public class ConexaoFactory {
 	private String host, url, usuario, senha, dbType, dbName;
-	private Connection conn;
+	private String conexaoAtiva;
 
 	private ConexaoFactory(String host, String usuario, String senha, String dbType, String dbName) {
 		this.host = host;
@@ -20,16 +16,6 @@ public class ConexaoFactory {
 
 	}
 
-	public Connection getConexao(ConexaoFactory conFactory) {
-		try {
-			url = "jdbc:" + conFactory.dbType + "://" + conFactory.host + "/" + conFactory.dbName;
-			this.conn = DriverManager.getConnection(url, conFactory.usuario, conFactory.senha);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return this.conn;
-	}
-	
 	public static class ConexaoFactoryBuilder {
 		private String host, usuario, senha, dbType, dbName;
 
@@ -64,11 +50,6 @@ public class ConexaoFactory {
 		public ConexaoFactory build() {
 			return new ConexaoFactory(host, usuario, senha, dbType, dbName);
 		}
-	}
-
-
-	public void setConn(Connection conn) {
-		this.conn = conn;
 	}
 
 	public String getDbName() {
@@ -117,6 +98,14 @@ public class ConexaoFactory {
 
 	public void setDbType(String dbType) {
 		this.dbType = dbType;
+	}
+
+	public String getConexaoAtiva() {
+		return conexaoAtiva;
+	}
+
+	public void setConexaoAtiva(String conexaoAtiva) {
+		this.conexaoAtiva = conexaoAtiva;
 	}
 
 }

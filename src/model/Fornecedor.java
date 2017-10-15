@@ -1,9 +1,10 @@
 package model;
 
 public class Fornecedor {
-	private String id,razaoSocial,nomeFantasia,endereco,telefone,nomeContato,email,prazo,representante;
+	private int id;
+	private String razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo, representante;
 
-	private Fornecedor(String id, String razaoSocial, String nomeFantasia, String endereco, String telefone,
+	private Fornecedor(int id, String razaoSocial, String nomeFantasia, String endereco, String telefone,
 			String nomeContato, String email, String prazo, String representante) {
 		super();
 		this.id = id;
@@ -17,11 +18,69 @@ public class Fornecedor {
 		this.representante = representante;
 	}
 
-	public String getId() {
+	public Fornecedor() {
+	};
+
+	public static class FornecedorBuilder {
+		private int id;
+		private String razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo, representante;
+
+		public FornecedorBuilder id(int id) {
+			this.id = id;
+			return this;
+		}
+
+		public FornecedorBuilder razaoSocial(String razaoSocial) {
+			this.razaoSocial = razaoSocial;
+			return this;
+		}
+
+		public FornecedorBuilder nomeFantasia(String nomeFantasia) {
+			this.nomeFantasia = nomeFantasia;
+			return this;
+		}
+
+		public FornecedorBuilder endereco(String endereco) {
+			this.endereco = endereco;
+			return this;
+		}
+
+		public FornecedorBuilder telefone(String telefone) {
+			this.telefone = telefone;
+			return this;
+		}
+
+		public FornecedorBuilder nomeContato(String nomeContato) {
+			this.nomeContato = nomeContato;
+			return this;
+		}
+
+		public FornecedorBuilder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public FornecedorBuilder prazo(String prazo) {
+			this.prazo = prazo;
+			return this;
+		}
+
+		public FornecedorBuilder representante(String representante) {
+			this.representante = representante;
+			return this;
+		}
+
+		public Fornecedor build() {
+			return new Fornecedor(id, razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo,
+					representante);
+		}
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -88,7 +147,5 @@ public class Fornecedor {
 	public void setRepresentante(String representante) {
 		this.representante = representante;
 	}
-	
-	
 
 }

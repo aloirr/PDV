@@ -1,33 +1,103 @@
 package model;
 
 public class Produto {
-	private String id,descricao,tipoEmbalagem,qtdEmbalagem,fornecedor,tipoAquisicao,tipoDestinacao;
+	// USE store;
+	// CREATE TABLE produto (
+	// id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	// nome VARCHAR(100) NOT NULL,
+	// unidadeMedida VARCHAR(10) NOT NULL,
+	// tipoEmbalagem VARCHAR(10),
+	// qtdPorEmbalagem INT,
+	// fornecedor VARCHAR(100) NOT NULL,
+	// armazem VARCHAR(100) NOT NULL
+	// );
 
-	private Produto(String id, String descricao, String tipoEmbalagem, String qtdEmbalagem, String fornecedor,
-			String tipoAquisicao, String tipoDestinacao) {
+	private Integer id, qtdPorEmbalagem;
+	private String nome, unidadeMedida, tipoEmbalagem, fornecedor, armazem;
+
+	private Produto(Integer id, String nome, String unidadeMedida, String tipoEmbalagem,
+			Integer qtdPorEmbalagem, String fornecedor, String armazem) {
+		super();
 		this.id = id;
-		this.descricao = descricao;
+		this.nome = nome;
+		this.unidadeMedida = unidadeMedida;
 		this.tipoEmbalagem = tipoEmbalagem;
-		this.qtdEmbalagem = qtdEmbalagem;
+		this.qtdPorEmbalagem = qtdPorEmbalagem;
 		this.fornecedor = fornecedor;
-		this.tipoAquisicao = tipoAquisicao;
-		this.tipoDestinacao = tipoDestinacao;
+		this.armazem = armazem;
 	}
 
-	public String getId() {
+	public Produto() {
+	}
+
+	public static class ProdutoBuilder {
+		private Integer id, qtdPorEmbalagem;
+		private String nome, unidadeMedida, tipoEmbalagem, fornecedor,
+				armazem;
+
+		public ProdutoBuilder id(Integer id) {
+			this.id = id;
+			return this;
+		}
+
+		public ProdutoBuilder unidadeMedida(String unidadeMedida) {
+			this.unidadeMedida = unidadeMedida;
+			return this;
+		}
+
+		public ProdutoBuilder tipoEmbalagem(String tipoEmbalagem) {
+			this.tipoEmbalagem = tipoEmbalagem;
+			return this;
+		}
+
+		public ProdutoBuilder qtdPorEmbalagem(Integer qtdPorEmbalagem) {
+			this.qtdPorEmbalagem = qtdPorEmbalagem;
+			return this;
+		}
+
+		public ProdutoBuilder fornecedor(String fornecedor) {
+			this.fornecedor = fornecedor;
+			return this;
+		}
+
+		public ProdutoBuilder armazem(String armazem) {
+			this.armazem = armazem;
+			return this;
+		}
+
+		public ProdutoBuilder nome(String nome) {
+			this.nome = nome;
+			return this;
+		}
+
+		public Produto build() {
+			return new Produto(id, nome, unidadeMedida, tipoEmbalagem, qtdPorEmbalagem,
+					fornecedor, armazem);
+		}
+	}
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(String unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
 	}
 
 	public String getTipoEmbalagem() {
@@ -38,12 +108,12 @@ public class Produto {
 		this.tipoEmbalagem = tipoEmbalagem;
 	}
 
-	public String getQtdEmbalagem() {
-		return qtdEmbalagem;
+	public Integer getQtdPorEmbalagem() {
+		return qtdPorEmbalagem;
 	}
 
-	public void setQtdEmbalagem(String qtdEmbalagem) {
-		this.qtdEmbalagem = qtdEmbalagem;
+	public void setQtdPorEmbalagem(Integer qtdPorEmbalagem) {
+		this.qtdPorEmbalagem = qtdPorEmbalagem;
 	}
 
 	public String getFornecedor() {
@@ -54,21 +124,12 @@ public class Produto {
 		this.fornecedor = fornecedor;
 	}
 
-	public String getTipoAquisicao() {
-		return tipoAquisicao;
+	public String getArmazem() {
+		return armazem;
 	}
 
-	public void setTipoAquisicao(String tipoAquisicao) {
-		this.tipoAquisicao = tipoAquisicao;
+	public void setArmazem(String armazem) {
+		this.armazem = armazem;
 	}
 
-	public String getTipoDestinacao() {
-		return tipoDestinacao;
-	}
-
-	public void setTipoDestinacao(String tipoDestinacao) {
-		this.tipoDestinacao = tipoDestinacao;
-	}
-
-	
 }

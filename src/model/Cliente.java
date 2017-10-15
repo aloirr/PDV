@@ -1,13 +1,14 @@
 package model;
 
 public class Cliente {
-	
-	private String id,razaoSocial,nomeFantasia,endereco,telefone,email,nomeContato,prazo,cpf,cnpj,inscEstadual,inscMunic,inscSuframa;
+
+	private String id;
+	private String razaoSocial, nomeFantasia, endereco, telefone, email, nomeContato, prazo, cpf, cnpj, inscEstadual,
+			inscMunic, inscSuframa;
 
 	private Cliente(String id, String razaoSocial, String nomeFantasia, String endereco, String telefone, String email,
 			String nomeContato, String prazo, String cpf, String cnpj, String inscEstadual, String inscMunic,
 			String inscSuframa) {
-		super();
 		this.id = id;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
@@ -21,6 +22,98 @@ public class Cliente {
 		this.inscEstadual = inscEstadual;
 		this.inscMunic = inscMunic;
 		this.inscSuframa = inscSuframa;
+	}
+
+	public Cliente() {
+	}
+
+	public static class ClienteBuilder {
+		private String id;
+		private String razaoSocial, nomeFantasia, endereco, telefone, email, nomeContato, prazo, cpf, cnpj,
+				inscEstadual, inscMunic, inscSuframa;
+
+		public ClienteBuilder id(String id) {
+			this.id = id;
+			return this;
+
+		}
+
+		public ClienteBuilder razaoSocial(String razaoSocial) {
+			this.razaoSocial = razaoSocial;
+			return this;
+
+		}
+
+		public ClienteBuilder nomeFantasia(String nomeFantasia) {
+			this.nomeFantasia = nomeFantasia;
+			return this;
+
+		}
+
+		public ClienteBuilder endereco(String endereco) {
+			this.endereco = endereco;
+			return this;
+
+		}
+
+		public ClienteBuilder email(String email) {
+			this.email = email;
+			return this;
+
+		}
+
+		public ClienteBuilder nomeContato(String nomeContato) {
+			this.nomeContato = nomeContato;
+			return this;
+
+		}
+
+		public ClienteBuilder prazo(String prazo) {
+			this.prazo = prazo;
+			return this;
+
+		}
+
+		public ClienteBuilder cpf(String cpf) {
+			this.cpf = cpf;
+			return this;
+
+		}
+
+		public ClienteBuilder cnpj(String cnpj) {
+			this.cnpj = cnpj;
+			return this;
+
+		}
+
+		public ClienteBuilder inscEstadual(String inscEstadual) {
+			this.inscEstadual = inscEstadual;
+			return this;
+
+		}
+
+		public ClienteBuilder inscMunic(String inscMunic) {
+			this.inscMunic = inscMunic;
+			return this;
+
+		}
+
+		public ClienteBuilder inscSuframa(String inscSuframa) {
+			this.inscSuframa = inscSuframa;
+			return this;
+
+		}
+
+		public ClienteBuilder telefone(String telefone) {
+			this.telefone = telefone;
+			return this;
+
+		}
+
+		public Cliente build() {
+			return new Cliente(id, razaoSocial, nomeFantasia, endereco, telefone, email, nomeContato, prazo, cpf, cnpj,
+					inscEstadual, inscMunic, inscSuframa);
+		}
 	}
 
 	public String getId() {
@@ -126,7 +219,5 @@ public class Cliente {
 	public void setInscSuframa(String inscSuframa) {
 		this.inscSuframa = inscSuframa;
 	}
-	
-	
 
 }
