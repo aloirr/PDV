@@ -1,52 +1,61 @@
 package control.rules;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import control.dao.ProdutoDAO;
 import model.Produto;
 
 public class ProdutoRules extends ProdutoDAO {
 
-	public static Produto cadastrarRule(Produto produto) throws SQLException {
+	public static String cadastrarRule(Produto produto) {
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
+		// retorna
+		if (ProdutoDAO.cadastrarDao(produto) > 0) {
+			return "Cadastro realizado com sucesso!";
+
+		} else {
+			return "Erro no cadastro! verifique as informações digitadas";
+		}
+
+	}
+
+	public static String alterarRule(Produto produto) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
+		if (ProdutoDAO.alterarDao(produto) > 0) {
+			return "Alteração Realizado com sucesso!";
 
-		return produto;
+		} else {
+			return "Erro na alteração! verifique as informações digitadas";
+		}
 	}
 
-	public static Produto alterarRule(Produto produto) throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException, SQLException {
-
-		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
-		// então retorna o próprio objeto.
-
-		return produto;
-	}
-
-	public static boolean pesquisarRule(Produto produto, String atributoWhere,
+	public static List<Produto> pesquisarRule(Produto produto, String atributoWhere,
 			String stringPequisa) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return true;
+		return ProdutoDAO.pesquisarDao(produto, atributoWhere, stringPequisa);
 
 	}
 
-	public static boolean deletarRule(String id) throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException, SQLException {
-
+	public static String deletarRule(String id) {
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return true;
+		if (ProdutoDAO.deletarDao(id) > 0) {
+			return "id: " + id + " excluido com sucesso!";
+		} else {
+
+			return "registro não localizado! tente novamente!";
+		}
 	}
 
-	public static boolean listarRule(Produto produto) throws IllegalArgumentException,
-			IllegalAccessException, NoSuchFieldException, SecurityException, SQLException {
-
+	public static List<Produto> listarRule(Produto produto) {
+		String table = "cliente";
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return true;
+		return ProdutoDAO.listarDao(produto, table);
 	}
 }

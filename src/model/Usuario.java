@@ -2,9 +2,11 @@ package model;
 
 public class Usuario {
 	private Integer id;
-	private String senha, nome, cpf, endereco, telefone;
+	private String login, senha, nome, cpf, endereco, telefone;
 
-	public Usuario(Integer id, String senha, String nome, String cpf, String endereco, String telefone) {
+	private Usuario(Integer id, String login, String senha, String nome, String cpf,
+			String endereco, String telefone) {
+		this.login = login;
 		this.id = id;
 		this.senha = senha;
 		this.nome = nome;
@@ -18,10 +20,15 @@ public class Usuario {
 
 	public static class UsuarioBuilder {
 		private Integer id;
-		private String senha, nome, cpf, endereco, telefone;
+		private String login, senha, nome, cpf, endereco, telefone;
 
 		public UsuarioBuilder id(Integer id) {
 			this.id = id;
+			return this;
+		}
+
+		public UsuarioBuilder login(String login) {
+			this.login = login;
 			return this;
 		}
 
@@ -51,7 +58,7 @@ public class Usuario {
 		}
 
 		public Usuario build() {
-			return new Usuario(id, senha, nome, cpf, endereco, telefone);
+			return new Usuario(id, login, senha, nome, cpf, endereco, telefone);
 		}
 	}
 
@@ -101,6 +108,14 @@ public class Usuario {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 }

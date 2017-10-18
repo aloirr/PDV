@@ -2,9 +2,10 @@ package model;
 
 public class Estacao {
 	private int id;
-	private String ip, status, infoAdicional;
+	private String ip, status, infoAdicional, nome;
 
-	private Estacao(int id, String ip, String status, String infoAdicional) {
+	private Estacao(int id, String nome, String ip, String status, String infoAdicional) {
+		this.nome = nome;
 		this.id = id;
 		this.ip = ip;
 		this.status = status;
@@ -16,7 +17,12 @@ public class Estacao {
 
 	public static class EstacaoBuilder {
 		private int id;
-		private String ip, status, infoAdicional;
+		private String nome, ip, status, infoAdicional;
+
+		public EstacaoBuilder nome(String nome) {
+			this.nome = nome;
+			return this;
+		}
 
 		public EstacaoBuilder id(int id) {
 			this.id = id;
@@ -39,7 +45,7 @@ public class Estacao {
 		}
 
 		public Estacao build() {
-			return new Estacao(id, ip, status, infoAdicional);
+			return new Estacao(id, nome, ip, status, infoAdicional);
 		}
 	}
 
@@ -73,6 +79,14 @@ public class Estacao {
 
 	public void setInfoAdicional(String infoAdicional) {
 		this.infoAdicional = infoAdicional;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

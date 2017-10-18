@@ -2,12 +2,19 @@ package model;
 
 public class Fornecedor {
 	private int id;
-	private String razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo, representante;
+	private String cpf, cnpj, inscMunic, inscEstadual, inscSuframa, razaoSocial, nomeFantasia,
+			endereco, telefone, nomeContato, email, prazo, representante;
 
-	private Fornecedor(int id, String razaoSocial, String nomeFantasia, String endereco, String telefone,
-			String nomeContato, String email, String prazo, String representante) {
+	private Fornecedor(int id, String cpf, String cnpj, String inscMunic, String inscEstadual,
+			String inscSuframa, String razaoSocial, String nomeFantasia, String endereco,
+			String telefone, String nomeContato, String email, String prazo, String representante) {
 		super();
 		this.id = id;
+		this.cpf = cpf;
+		this.cnpj = cnpj;
+		this.inscMunic = inscMunic;
+		this.inscEstadual = inscEstadual;
+		this.inscSuframa = inscSuframa;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.endereco = endereco;
@@ -23,7 +30,33 @@ public class Fornecedor {
 
 	public static class FornecedorBuilder {
 		private int id;
-		private String razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo, representante;
+		private String cpf, cnpj, inscMunic, inscEstadual, inscSuframa, razaoSocial, nomeFantasia,
+				endereco, telefone, nomeContato, email, prazo, representante;
+
+		public FornecedorBuilder cpf(String cpf) {
+			this.cpf = cpf;
+			return this;
+		}
+
+		public FornecedorBuilder cnpj(String cnpj) {
+			this.cnpj = cnpj;
+			return this;
+		}
+
+		public FornecedorBuilder inscMunic(String inscMunic) {
+			this.inscMunic = inscMunic;
+			return this;
+		}
+
+		public FornecedorBuilder inscEstadual(String inscEstadual) {
+			this.inscEstadual = inscEstadual;
+			return this;
+		}
+
+		public FornecedorBuilder inscSuframa(String inscSuframa) {
+			this.inscSuframa = inscSuframa;
+			return this;
+		}
 
 		public FornecedorBuilder id(int id) {
 			this.id = id;
@@ -71,8 +104,8 @@ public class Fornecedor {
 		}
 
 		public Fornecedor build() {
-			return new Fornecedor(id, razaoSocial, nomeFantasia, endereco, telefone, nomeContato, email, prazo,
-					representante);
+			return new Fornecedor(id, cpf, cnpj, inscMunic, inscEstadual, inscSuframa, razaoSocial,
+					nomeFantasia, endereco, telefone, nomeContato, email, prazo, representante);
 		}
 	}
 
@@ -146,6 +179,46 @@ public class Fornecedor {
 
 	public void setRepresentante(String representante) {
 		this.representante = representante;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getInscMunic() {
+		return inscMunic;
+	}
+
+	public void setInscMunic(String inscMunic) {
+		this.inscMunic = inscMunic;
+	}
+
+	public String getInscEstadual() {
+		return inscEstadual;
+	}
+
+	public void setInscEstadual(String inscEstadual) {
+		this.inscEstadual = inscEstadual;
+	}
+
+	public String getInscSuframa() {
+		return inscSuframa;
+	}
+
+	public void setInscSuframa(String inscSuframa) {
+		this.inscSuframa = inscSuframa;
 	}
 
 }

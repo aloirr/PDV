@@ -1,16 +1,13 @@
 package viewTest;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import control.dao.GenericCRUD;
 import control.dao.util.IpegaAtributosObjetos;
-import model.Cliente;
+import viewTest.clienteView.ClienteView;
 
 public class Main implements IpegaAtributosObjetos {
-	public static void main(String[] args)
-			throws SQLException, IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException, InterruptedException {
+	public static void main(String[] args) throws SQLException, IllegalArgumentException,
+			IllegalAccessException, NoSuchFieldException, SecurityException, InterruptedException {
 		// Cliente cliente = new
 		// Cliente.ClienteBuilder().razaoSocial("aloha2").nomeFantasia("estrela").email("a@b.c")
 		// .inscEstadual("55555").inscMunic("333333").inscSuframa("12345").nomeContato("ppk").endereco("endereco")
@@ -56,7 +53,9 @@ public class Main implements IpegaAtributosObjetos {
 		// // // USANDO O DELETE DO ClienteDAO
 		// cliente6.setId("21");
 		// GenericCRUD.delete("clientes", "razaoSocial='galaxia'");
-		ProdutoView produtoview = new ProdutoView();
-		produtoview.menuProduto();
+		// ProdutoView produtoview = new ProdutoView();
+		// produtoview.menuProduto();
+		ClienteView clienteview = new ClienteView();
+		clienteview.menuCliente();
 	}
 }

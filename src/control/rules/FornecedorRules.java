@@ -1,43 +1,61 @@
 package control.rules;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import control.dao.FornecedorDAO;
 import model.Fornecedor;
 
 public class FornecedorRules extends FornecedorDAO {
 
-	public static  Fornecedor cadastrarRule(Fornecedor Fornecedor) throws SQLException {
+	public static String cadastrarRule(Fornecedor Fornecedor) {
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
+		// retorna
+		if (FornecedorDAO.cadastrarDao(Fornecedor) > 0) {
+			return "Cadastro realizado com sucesso!";
 
-		// Verifica se os dados do objeto Fornecedor estão dentro das regras de negócios, e
-		// então retorna o próprio objeto.
+		} else {
+			return "Erro no cadastro! verifique as informações digitadas";
+		}
 
-		return Fornecedor;
 	}
 
-	public static  Fornecedor alterarRule(Fornecedor Fornecedor) throws IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException, SQLException {
+	public static String alterarRule(Fornecedor Fornecedor) {
 
-		// Verifica se os dados do objeto Fornecedor estão dentro das regras de negócios, e
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
+		if (FornecedorDAO.alterarDao(Fornecedor) > 0) {
+			return "Alteração Realizado com sucesso!";
 
-		return Fornecedor;
+		} else {
+			return "Erro na alteração! verifique as informações digitadas";
+		}
 	}
 
-	public static  boolean pesquisarRule(Fornecedor Fornecedor, String atributoWhere, String stringPequisa) {
+	public static List<Fornecedor> pesquisarRule(Fornecedor Fornecedor, String atributoWhere,
+			String stringPequisa) {
 
-		// Verifica se os dados do objeto Fornecedor estão dentro das regras de negócios, e
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return true;
+		return FornecedorDAO.pesquisarDao(Fornecedor, atributoWhere, stringPequisa);
 
 	}
 
-	public static  boolean deletarRule(String param) throws IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException, SQLException {
-		
-		// Verifica se os dados do objeto Fornecedor estão dentro das regras de negócios, e
+	public static String deletarRule(String id) {
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return true;
+		if (FornecedorDAO.deletarDao(id) > 0) {
+			return "id: " + id + " excluido com sucesso!";
+		} else {
+
+			return "registro não localizado! tente novamente!";
+		}
+	}
+
+	public static List<Fornecedor> listarRule(Fornecedor Fornecedor) {
+		String table = "Fornecedor";
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar o delete.
+		return FornecedorDAO.listarDao(Fornecedor, table);
 	}
 }

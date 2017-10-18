@@ -1,44 +1,61 @@
 package control.rules;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import control.dao.ClienteDAO;
 import model.Cliente;
 
 public class ClienteRules extends ClienteDAO {
 
-	public static Cliente cadastrarRule(Cliente cliente) throws SQLException {
+	public static String cadastrarRule(Cliente Cliente) {
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
+		// retorna
+		if (ClienteDAO.cadastrarDao(Cliente) > 0) {
+			return "Cadastro realizado com sucesso!";
 
-		// Verifica se os dados do objeto Cliente estão dentro das regras de negócios, e
-		// então retorna o próprio objeto.
+		} else {
+			return "Erro no cadastro! verifique as informações digitadas";
+		}
 
-		return cliente;
 	}
 
-	public static Cliente alterarRule(Cliente cliente) throws IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException, SQLException {
+	public static String alterarRule(Cliente Cliente) {
 
-		// Verifica se os dados do objeto Cliente estão dentro das regras de negócios, e
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
+		if (ClienteDAO.alterarDao(Cliente) > 0) {
+			return "Alteração Realizado com sucesso!";
 
-		return cliente;
+		} else {
+			return "Erro na alteração! verifique as informações digitadas";
+		}
 	}
 
-	public static boolean pesquisarRule(Cliente cliente, String atributoWhere, String stringPequisa) {
+	public static List<Cliente> pesquisarRule(Cliente Cliente, String atributoWhere,
+			String stringPequisa) {
 
-		// Verifica se os dados do objeto Cliente estão dentro das regras de negócios, e
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return true;
+		return ClienteDAO.pesquisarDao(Cliente, atributoWhere, stringPequisa);
 
 	}
 
-	public static boolean deletarRule(String param) throws IllegalArgumentException, IllegalAccessException,
-			NoSuchFieldException, SecurityException, SQLException {
-
-		// Verifica se os dados do objeto Cliente estão dentro das regras de negócios, e
+	public static String deletarRule(String id) {
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return true;
+		if (ClienteDAO.deletarDao(id) > 0) {
+			return "id: " + id + " excluido com sucesso!";
+		} else {
+
+			return "registro não localizado! tente novamente!";
+		}
 	}
 
+	public static List<Cliente> listarRule(Cliente Cliente) {
+		String table = "cliente";
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar o delete.
+		return ClienteDAO.listarDao(Cliente, table);
+	}
 }

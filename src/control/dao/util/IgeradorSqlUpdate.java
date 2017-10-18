@@ -7,23 +7,28 @@ import java.util.stream.Collectors;
 
 public interface IgeradorSqlUpdate extends IretornaValoresAtributosObj {
 
-	static public <T> String sqlUpdate(T t, String table)
-			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	static public <T> String sqlUpdate(T t, String table) {
 		String getCampoWhere = "";
 		List<String> camposUpdate = new ArrayList<>();
 		Field[] fields = t.getClass().getDeclaredFields();
 		for (Field field : fields) {
-			if (field.getName() == "id") {
+			try {
+				if (field.getName().equalsIgnoreCase("id")) {
+					field.setAccessible(true);
+					getCampoWhere = "'" + field.get(t) + "'";
+					field.setAccessible(false);
+				}
 				field.setAccessible(true);
-				getCampoWhere = "'" + field.get(t) + "'";
+				camposUpdate.add(field.getName() + "=" + "'" + field.get(t) + "'");
 				field.setAccessible(false);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+
+				e.printStackTrace();
 			}
-			field.setAccessible(true);
-			camposUpdate.add(field.getName() + "=" + "'" + field.get(t) + "'");
-			field.setAccessible(false);
+
 		}
 		return "UPDATE " + table + " SET "
-				+ camposUpdate.stream().map(p -> p.toString()).collect(Collectors.joining(",")) + " WHERE id" + "="
-				+ getCampoWhere;
+				+ camposUpdate.stream().map(p -> p.toString()).collect(Collectors.joining(","))
+				+ " WHERE id" + "=" + getCampoWhere;
 	}
 }
