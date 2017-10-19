@@ -2,11 +2,11 @@ package model;
 
 public class Cliente {
 
-	private String id;
+	private Integer id;
 	private String razaoSocial, nomeFantasia, endereco, telefone, email, nomeContato, prazo, cpf, cnpj, inscEstadual,
 			inscMunic, inscSuframa;
 
-	private Cliente(String id, String razaoSocial, String nomeFantasia, String endereco, String telefone, String email,
+	private Cliente(Integer id, String razaoSocial, String nomeFantasia, String endereco, String telefone, String email,
 			String nomeContato, String prazo, String cpf, String cnpj, String inscEstadual, String inscMunic,
 			String inscSuframa) {
 		this.id = id;
@@ -28,11 +28,11 @@ public class Cliente {
 	}
 
 	public static class ClienteBuilder {
-		private String id;
+		private Integer id;
 		private String razaoSocial, nomeFantasia, endereco, telefone, email, nomeContato, prazo, cpf, cnpj,
 				inscEstadual, inscMunic, inscSuframa;
 
-		public ClienteBuilder id(String id) {
+		public ClienteBuilder id(Integer id) {
 			this.id = id;
 			return this;
 
@@ -116,11 +116,11 @@ public class Cliente {
 		}
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

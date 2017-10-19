@@ -29,4 +29,12 @@ public class ClienteDAO implements GenericCRUD {
 	public static List<Cliente> listarDao(Cliente cliente, String table) {
 		return GenericCRUD.readAll(cliente, table);
 	}
+
+	public static Integer contarDao() {
+		return GenericCRUD.count(table);
+	}
+
+	public static Integer contarDao(String atributoWhere, String stringPequisa) {
+		return GenericCRUD.count(table, atributoWhere, stringPequisa);
+	}
 }

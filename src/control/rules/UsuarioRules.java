@@ -2,15 +2,16 @@ package control.rules;
 
 import java.util.List;
 
+import control.dao.TiposDeEstoqueDAO;
 import control.dao.UsuarioDAO;
 import model.Usuario;
 
 public class UsuarioRules extends UsuarioDAO {
 
-	public static String cadastrarRule(Usuario Usuario) {
+	public static String cadastrarRule(Usuario usuario) {
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (UsuarioDAO.cadastrarDao(Usuario) > 0) {
+		if (UsuarioDAO.cadastrarDao(usuario) > 0) {
 			return "Cadastro realizado com sucesso!";
 
 		} else {
@@ -19,11 +20,11 @@ public class UsuarioRules extends UsuarioDAO {
 
 	}
 
-	public static String alterarRule(Usuario Usuario) {
+	public static String alterarRule(Usuario usuario) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (UsuarioDAO.alterarDao(Usuario) > 0) {
+		if (UsuarioDAO.alterarDao(usuario) > 0) {
 			return "Alteração Realizado com sucesso!";
 
 		} else {
@@ -31,13 +32,13 @@ public class UsuarioRules extends UsuarioDAO {
 		}
 	}
 
-	public static List<Usuario> pesquisarRule(Usuario Usuario, String atributoWhere,
+	public static List<Usuario> pesquisarRule(Usuario usuario, String atributoWhere,
 			String stringPequisa) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return UsuarioDAO.pesquisarDao(Usuario, atributoWhere, stringPequisa);
+		return UsuarioDAO.pesquisarDao(usuario, atributoWhere, stringPequisa);
 
 	}
 
@@ -52,10 +53,29 @@ public class UsuarioRules extends UsuarioDAO {
 		}
 	}
 
-	public static List<Usuario> listarRule(Usuario Usuario) {
+	public static List<Usuario> listarRule(Usuario usuario) {
 		String table = "usuario";
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return UsuarioDAO.listarDao(Usuario, table);
+		return UsuarioDAO.listarDao(usuario, table);
 	}
+
+	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return UsuarioDAO.contarDao(atributoWhere, stringPequisa);
+
+	}
+
+	public static Integer contarRule() {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return UsuarioDAO.contarDao();
+
+	}
+
 }

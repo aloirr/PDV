@@ -53,7 +53,7 @@ public interface GenericCRUD extends GenericDAO, IpegaAtributosObjetos, Iretorna
 
 	static public <T> List<T> readAll(T t, String table) {
 		String sqlread = "SELECT * FROM " + table;
-	PreparedStatement ps = GenericDAO.ps(sqlread);
+		PreparedStatement ps = GenericDAO.ps(sqlread);
 		ResultSet rs;
 		try {
 			rs = ps.executeQuery();
@@ -98,4 +98,41 @@ public interface GenericCRUD extends GenericDAO, IpegaAtributosObjetos, Iretorna
 		return null;
 
 	}
+
+	static public Integer count(String table) {
+		String sqlread = "SELECT COUNT(*) FROM " + table;
+		PreparedStatement ps = GenericDAO.ps(sqlread);
+		ResultSet rs;
+		try {
+			rs = ps.executeQuery();
+			Integer count = rs.getInt("count(*)");
+			GenericDAO.closeConn(ps, rs);
+			return count;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	static public <T> Integer count(String table, String atributoWhere, String string) {
+		String sqlread = "SELECT COUNT(*) FROM " + table + " WHERE " + atributoWhere + " LIKE '%"
+				+ string + "%'";
+		PreparedStatement ps = GenericDAO.ps(sqlread);
+		ResultSet rs;
+		try {
+			rs = ps.executeQuery();
+			rs.next();
+			Integer count = rs.getInt("count(*)");
+			GenericDAO.closeConn(ps, rs);
+			return count;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
 }

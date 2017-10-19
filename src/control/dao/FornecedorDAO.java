@@ -1,9 +1,7 @@
 package control.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import model.Cliente;
 import model.Fornecedor;
 
 public class FornecedorDAO implements GenericCRUD {
@@ -31,4 +29,13 @@ public class FornecedorDAO implements GenericCRUD {
 	public static List<Fornecedor> listarDao(Fornecedor fornecedor, String table) {
 		return GenericCRUD.readAll(fornecedor, table);
 	}
+
+	public static Integer contarDao() {
+		return GenericCRUD.count(table);
+	}
+
+	public static Integer contarDao(String atributoWhere, String stringPequisa) {
+		return GenericCRUD.count(table, atributoWhere, stringPequisa);
+	}
+
 }

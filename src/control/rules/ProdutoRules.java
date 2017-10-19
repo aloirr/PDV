@@ -2,6 +2,7 @@ package control.rules;
 
 import java.util.List;
 
+import control.dao.ArmazemDAO;
 import control.dao.ProdutoDAO;
 import model.Produto;
 
@@ -53,9 +54,28 @@ public class ProdutoRules extends ProdutoDAO {
 	}
 
 	public static List<Produto> listarRule(Produto produto) {
-		String table = "cliente";
+		String table = "produto";
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
 		return ProdutoDAO.listarDao(produto, table);
 	}
+
+	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return ProdutoDAO.contarDao(atributoWhere, stringPequisa);
+
+	}
+
+	public static Integer contarRule() {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return ProdutoDAO.contarDao();
+
+	}
+
 }

@@ -2,15 +2,16 @@ package control.rules;
 
 import java.util.List;
 
+import control.dao.ArmazemDAO;
 import control.dao.FornecedorDAO;
 import model.Fornecedor;
 
 public class FornecedorRules extends FornecedorDAO {
 
-	public static String cadastrarRule(Fornecedor Fornecedor) {
+	public static String cadastrarRule(Fornecedor fornecedor) {
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (FornecedorDAO.cadastrarDao(Fornecedor) > 0) {
+		if (FornecedorDAO.cadastrarDao(fornecedor) > 0) {
 			return "Cadastro realizado com sucesso!";
 
 		} else {
@@ -19,25 +20,25 @@ public class FornecedorRules extends FornecedorDAO {
 
 	}
 
-	public static String alterarRule(Fornecedor Fornecedor) {
+	public static String alterarRule(Fornecedor fornecedor) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (FornecedorDAO.alterarDao(Fornecedor) > 0) {
+		if (FornecedorDAO.alterarDao(fornecedor) > 0) {
 			return "Alteração Realizado com sucesso!";
 
-		} else {
+		} else {f
 			return "Erro na alteração! verifique as informações digitadas";
 		}
 	}
 
-	public static List<Fornecedor> pesquisarRule(Fornecedor Fornecedor, String atributoWhere,
+	public static List<Fornecedor> pesquisarRule(Fornecedor fornecedor, String atributoWhere,
 			String stringPequisa) {
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return FornecedorDAO.pesquisarDao(Fornecedor, atributoWhere, stringPequisa);
+		return FornecedorDAO.pesquisarDao(fornecedor, atributoWhere, stringPequisa);
 
 	}
 
@@ -52,10 +53,29 @@ public class FornecedorRules extends FornecedorDAO {
 		}
 	}
 
-	public static List<Fornecedor> listarRule(Fornecedor Fornecedor) {
-		String table = "Fornecedor";
+	public static List<Fornecedor> listarRule(Fornecedor fornecedor) {
+		String table = "fornecedor";
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return FornecedorDAO.listarDao(Fornecedor, table);
+		return FornecedorDAO.listarDao(fornecedor, table);
 	}
+
+	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return FornecedorDAO.contarDao(atributoWhere, stringPequisa);
+
+	}
+
+	public static Integer contarRule() {
+
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return FornecedorDAO.contarDao();
+
+	}
+
 }

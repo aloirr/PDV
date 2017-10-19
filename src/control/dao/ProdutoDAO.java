@@ -28,4 +28,13 @@ public class ProdutoDAO implements GenericCRUD {
 	public static Long deletarDao(String param) {
 		return GenericCRUD.delete(table, param);
 	}
+
+	public static Integer contarDao() {
+		return GenericCRUD.count(table);
+	}
+
+	public static Integer contarDao(String atributoWhere, String stringPequisa) {
+		return GenericCRUD.count(table, atributoWhere, stringPequisa);
+	}
+
 }
