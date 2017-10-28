@@ -1,4 +1,4 @@
-package control.dao;
+package model;
 
 public class ConexaoFactory {
 	private String host, url, usuario, senha, dbType, dbName;

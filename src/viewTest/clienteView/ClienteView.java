@@ -1,9 +1,9 @@
 package viewTest.clienteView;
 
-import util.Iscanner;
+import util.Scan;
 
 public class ClienteView implements IalterarClienteView, IcadastrarClienteView,
-		IconsultarClienteView, IexcluirClienteView, IlistarClienteView, Iscanner {
+		IconsultarClienteView, IexcluirClienteView, IlistarClienteView, Scan {
 
 	public void menuCliente() {
 		String opcao = "";
@@ -11,7 +11,7 @@ public class ClienteView implements IalterarClienteView, IcadastrarClienteView,
 			System.out.println("Menu de Clientes);\n" + "1) Cadastrar;\n" + "2) Consultar;\n"
 					+ "3) Alterar;\n" + "4) Excluir:\n" + "5) Listar:\n"
 					+ "6) Imprimir relação de clientes cadastrados\n" + "0) Sair do menu");
-			opcao = Iscanner.nextLine();
+			opcao = Scan.nextLine();
 			switch (opcao) {
 			case "1":
 				IcadastrarClienteView.run();

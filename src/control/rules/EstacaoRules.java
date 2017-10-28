@@ -1,30 +1,35 @@
 package control.rules;
 
-import java.util.List;
+import java.util.HashSet;
 
-import control.dao.ArmazemDAO;
 import control.dao.EstacaoDAO;
+import interfaces.IcontratoRules;
 import model.Estacao;
 
-public class EstacaoRules extends EstacaoDAO {
+public class EstacaoRules implements IcontratoRules<Estacao> {
 
-	public static String cadastrarRule(Estacao estacao) {
+	public String insert(Estacao estacao) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
+		Estacao obj = new Estacao();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (EstacaoDAO.cadastrarDao(estacao) > 0) {
+		if (!estacaoDAO.readTable(obj).stream().filter(p -> p.getNome().matches(estacao.getNome()))
+				.findAny().isPresent()) {
+			estacaoDAO.insert(estacao);
 			return "Cadastro realizado com sucesso!";
 
 		} else {
-			return "Erro no cadastro! verifique as informações digitadas";
+			return "Cadastro não efetuado! Já existe um estacao com o nome: " + estacao.getNome();
 		}
 
 	}
 
-	public static String alterarRule(Estacao estacao) {
+	public String update(Estacao estacao) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (EstacaoDAO.alterarDao(estacao) > 0) {
+		if (estacaoDAO.update(estacao) > 0) {
 			return "Alteração Realizado com sucesso!";
 
 		} else {
@@ -32,20 +37,21 @@ public class EstacaoRules extends EstacaoDAO {
 		}
 	}
 
-	public static List<Estacao> pesquisarRule(Estacao estacao, String atributoWhere,
-			String stringPequisa) {
+	public HashSet<Estacao> searchBy(Estacao estacao, String atributoWhere, String stringPequisa) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return EstacaoDAO.pesquisarDao(estacao, atributoWhere, stringPequisa);
+		return estacaoDAO.searchBy(estacao, atributoWhere, stringPequisa);
 
 	}
 
-	public static String deletarRule(String id) {
+	public String delete(String id) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		if (EstacaoDAO.deletarDao(id) > 0) {
+		if (estacaoDAO.delete(id) > 0) {
 			return "id: " + id + " excluido com sucesso!";
 		} else {
 
@@ -53,29 +59,38 @@ public class EstacaoRules extends EstacaoDAO {
 		}
 	}
 
-	public static List<Estacao> listarRule(Estacao estacao) {
-		String table = "estacao";
+	public HashSet<Estacao> readTable(Estacao estacao) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return EstacaoDAO.listarDao(estacao, table);
+		return estacaoDAO.readTable(estacao);
 	}
 
-	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+	public Integer count(String atributoWhere, String stringPequisa) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return estacaoDAO.count(atributoWhere, stringPequisa);
+
+	}
+
+	public Integer countTable() {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return estacaoDAO.countTable();
+
+	}
+
+	@Override
+	public HashSet<Estacao> findInSet(Estacao estacao, String atributoWhere, String stringPequisa) {
+		EstacaoDAO estacaoDAO = new EstacaoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return EstacaoDAO.contarDao(atributoWhere, stringPequisa);
-
+		return estacaoDAO.findInSet(estacao, atributoWhere, stringPequisa);
 	}
-
-	public static Integer contarRule() {
-
-		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
-		// então retorna true ou false para continuar a pesquisa.
-
-		return EstacaoDAO.contarDao();
-
-	}
-
 }

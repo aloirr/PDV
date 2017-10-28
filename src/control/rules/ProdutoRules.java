@@ -1,30 +1,35 @@
 package control.rules;
 
-import java.util.List;
+import java.util.HashSet;
 
-import control.dao.ArmazemDAO;
 import control.dao.ProdutoDAO;
+import interfaces.IcontratoRules;
 import model.Produto;
 
-public class ProdutoRules extends ProdutoDAO {
+public class ProdutoRules implements IcontratoRules<Produto> {
 
-	public static String cadastrarRule(Produto produto) {
+	public String insert(Produto produto) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		Produto obj = new Produto();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (ProdutoDAO.cadastrarDao(produto) > 0) {
+		if (!produtoDAO.readTable(obj).stream().filter(p -> p.getNome().matches(produto.getNome()))
+				.findAny().isPresent()) {
+			produtoDAO.insert(produto);
 			return "Cadastro realizado com sucesso!";
 
 		} else {
-			return "Erro no cadastro! verifique as informações digitadas";
+			return "Cadastro não efetuado! Já existe um produto com o nome: " + produto.getNome();
 		}
 
 	}
 
-	public static String alterarRule(Produto produto) {
+	public String update(Produto produto) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (ProdutoDAO.alterarDao(produto) > 0) {
+		if (produtoDAO.update(produto) > 0) {
 			return "Alteração Realizado com sucesso!";
 
 		} else {
@@ -32,20 +37,21 @@ public class ProdutoRules extends ProdutoDAO {
 		}
 	}
 
-	public static List<Produto> pesquisarRule(Produto produto, String atributoWhere,
-			String stringPequisa) {
+	public HashSet<Produto> searchBy(Produto produto, String atributoWhere, String stringPequisa) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return ProdutoDAO.pesquisarDao(produto, atributoWhere, stringPequisa);
+		return produtoDAO.searchBy(produto, atributoWhere, stringPequisa);
 
 	}
 
-	public static String deletarRule(String id) {
+	public String delete(String id) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		if (ProdutoDAO.deletarDao(id) > 0) {
+		if (produtoDAO.delete(id) > 0) {
 			return "id: " + id + " excluido com sucesso!";
 		} else {
 
@@ -53,29 +59,39 @@ public class ProdutoRules extends ProdutoDAO {
 		}
 	}
 
-	public static List<Produto> listarRule(Produto produto) {
-		String table = "produto";
+	public HashSet<Produto> readTable(Produto produto) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return ProdutoDAO.listarDao(produto, table);
+		return produtoDAO.readTable(produto);
 	}
 
-	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+	public Integer count(String atributoWhere, String stringPequisa) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return produtoDAO.count(atributoWhere, stringPequisa);
+
+	}
+
+	public Integer countTable() {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return produtoDAO.countTable();
+
+	}
+
+	@Override
+	public HashSet<Produto> findInSet(Produto produto, String atributoWhere, String stringPequisa) {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return ProdutoDAO.contarDao(atributoWhere, stringPequisa);
-
-	}
-
-	public static Integer contarRule() {
-
-		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
-		// então retorna true ou false para continuar a pesquisa.
-
-		return ProdutoDAO.contarDao();
-
+		return produtoDAO.findInSet(produto, atributoWhere, stringPequisa);
 	}
 
 }

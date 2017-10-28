@@ -6,15 +6,15 @@ import java.util.List;
 import control.dao.util.IpegaAtributosObjetos;
 import control.rules.ProdutoRules;
 import model.Produto;
-import util.Iscanner;
+import util.Scan;
 
-public interface IconsultarProdutoView extends Iscanner {
+public interface IconsultarProdutoView extends Scan {
 
 	static public void run() {
 		try {
 			String atributoWhere = "0", stringPequisa = "";
 			Produto produto = new Produto();
-			List<String> listaAtrib = IpegaAtributosObjetos.Lista(produto);
+			List<String> listaAtrib = IpegaAtributosObjetos.retornaAtributosObjetoLista(produto);
 			int count = 1;
 			while (true) {
 				atributoWhere = "";
@@ -28,7 +28,7 @@ public interface IconsultarProdutoView extends Iscanner {
 						System.out.println(count + ")" + atrib);
 						count++;
 					}
-					atributoWhere = Iscanner.nextLine();
+					atributoWhere = Scan.nextLine();
 					if (atributoWhere.equalsIgnoreCase("sair")) {
 						break;
 					}
@@ -42,9 +42,9 @@ public interface IconsultarProdutoView extends Iscanner {
 				while (stringPequisa.isEmpty()) {
 					System.out.println(
 							"Por favor, digite o parametro de pesquisa do produto que deseja encontrar");
-					stringPequisa = Iscanner.nextLine();
+					stringPequisa = Scan.nextLine();
 				}
-				for (Produto produtoFor : ProdutoRules.pesquisarRule(produto, atributoWhere,
+				for (Produto produtoFor : ProdutoRules.searchBy(produto, atributoWhere,
 						stringPequisa)) {
 					for (Field field : produtoFor.getClass().getDeclaredFields()) {
 						field.setAccessible(true);
@@ -55,7 +55,7 @@ public interface IconsultarProdutoView extends Iscanner {
 					System.out.println("#######################");
 
 				}
-				Iscanner.nextLine();
+				Scan.nextLine();
 
 			}
 

@@ -6,17 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public interface GenericDAO {
+import model.ConexaoFactory;
 
-	public static Connection conn() {
+public class ConexaoJDBC {
+
+	public Connection conn() {
 		ConexaoFactory conFactory = new ConexaoFactory.ConexaoFactoryBuilder()
-				.nomeDb("store?autoReconnect=true&useSSL=false").host("localhost:3306").tipoDb("mysql").senha("1234")
-				.usuario("root").build();
+				.nomeDb("store?autoReconnect=true&useSSL=false").host("localhost:3306")
+				.tipoDb("mysql").senha("1234").usuario("root").build();
 
-		String url = "jdbc:" + conFactory.getDbType() + "://" + conFactory.getHost() + "/" + conFactory.getDbName();
+		String url = "jdbc:" + conFactory.getDbType() + "://" + conFactory.getHost() + "/"
+				+ conFactory.getDbName();
 
 		try {
-			Connection conn = DriverManager.getConnection(url, conFactory.getUsuario(), conFactory.getSenha());
+			Connection conn = DriverManager.getConnection(url, conFactory.getUsuario(),
+					conFactory.getSenha());
 			return conn;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -24,7 +28,7 @@ public interface GenericDAO {
 		return null;
 	}
 
-	public static PreparedStatement ps(String sql) {
+	public PreparedStatement ps(String sql) {
 		try {
 			PreparedStatement ps = conn().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
@@ -35,7 +39,7 @@ public interface GenericDAO {
 		return null;
 	}
 
-	public static PreparedStatement ps(String sql, int psKey) {
+	public PreparedStatement ps(String sql, int psKey) {
 		try {
 			PreparedStatement ps = conn().prepareStatement(sql, psKey);
 			return ps;
@@ -45,7 +49,7 @@ public interface GenericDAO {
 		return null;
 	}
 
-	public static void closeConn(Connection conn, PreparedStatement ps, ResultSet rs) {
+	public void closeConn(Connection conn, PreparedStatement ps, ResultSet rs) {
 		try {
 			rs.close();
 			ps.close();
@@ -56,7 +60,7 @@ public interface GenericDAO {
 
 	}
 
-	public static void closeConn(PreparedStatement ps, ResultSet rs) {
+	public void closeConn(PreparedStatement ps, ResultSet rs) {
 		try {
 			rs.close();
 			ps.close();
@@ -66,7 +70,7 @@ public interface GenericDAO {
 
 	}
 
-	public static void closeConn(Connection conn, PreparedStatement ps) {
+	public void closeConn(Connection conn, PreparedStatement ps) {
 		try {
 			ps.close();
 			conn.close();
@@ -76,7 +80,7 @@ public interface GenericDAO {
 
 	}
 
-	public static void closeConn(Connection conn) {
+	public void closeConn(Connection conn) {
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -84,7 +88,7 @@ public interface GenericDAO {
 		}
 	}
 
-	public static void closeConn(PreparedStatement ps) {
+	public void closeConn(PreparedStatement ps) {
 		try {
 			ps.close();
 		} catch (SQLException e) {

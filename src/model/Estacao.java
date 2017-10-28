@@ -1,7 +1,7 @@
 package model;
 
 public class Estacao {
-	private int id;
+	private Integer id;
 	private String ip, status, infoAdicional, nome;
 
 	private Estacao(int id, String nome, String ip, String status, String infoAdicional) {
@@ -87,6 +87,28 @@ public class Estacao {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estacao other = (Estacao) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

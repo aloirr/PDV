@@ -1,30 +1,35 @@
 package control.rules;
 
-import java.util.List;
+import java.util.HashSet;
 
-import control.dao.TiposDeEstoqueDAO;
 import control.dao.UsuarioDAO;
+import interfaces.IcontratoRules;
 import model.Usuario;
 
-public class UsuarioRules extends UsuarioDAO {
+public class UsuarioRules implements IcontratoRules<Usuario> {
 
-	public static String cadastrarRule(Usuario usuario) {
+	public String insert(Usuario usuario) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario obj = new Usuario();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (UsuarioDAO.cadastrarDao(usuario) > 0) {
+		if (!usuarioDAO.readTable(obj).stream().filter(p -> p.getNome().matches(usuario.getNome()))
+				.findAny().isPresent()) {
+			usuarioDAO.insert(usuario);
 			return "Cadastro realizado com sucesso!";
 
 		} else {
-			return "Erro no cadastro! verifique as informações digitadas";
+			return "Cadastro não efetuado! Já existe um usuario com o nome: " + usuario.getNome();
 		}
 
 	}
 
-	public static String alterarRule(Usuario usuario) {
+	public String update(Usuario usuario) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (UsuarioDAO.alterarDao(usuario) > 0) {
+		if (usuarioDAO.update(usuario) > 0) {
 			return "Alteração Realizado com sucesso!";
 
 		} else {
@@ -32,20 +37,21 @@ public class UsuarioRules extends UsuarioDAO {
 		}
 	}
 
-	public static List<Usuario> pesquisarRule(Usuario usuario, String atributoWhere,
-			String stringPequisa) {
+	public HashSet<Usuario> searchBy(Usuario usuario, String atributoWhere, String stringPequisa) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return UsuarioDAO.pesquisarDao(usuario, atributoWhere, stringPequisa);
+		return usuarioDAO.searchBy(usuario, atributoWhere, stringPequisa);
 
 	}
 
-	public static String deletarRule(String id) {
+	public String delete(String id) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		if (UsuarioDAO.deletarDao(id) > 0) {
+		if (usuarioDAO.delete(id) > 0) {
 			return "id: " + id + " excluido com sucesso!";
 		} else {
 
@@ -53,29 +59,39 @@ public class UsuarioRules extends UsuarioDAO {
 		}
 	}
 
-	public static List<Usuario> listarRule(Usuario usuario) {
-		String table = "usuario";
+	public HashSet<Usuario> readTable(Usuario usuario) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return UsuarioDAO.listarDao(usuario, table);
+		return usuarioDAO.readTable(usuario);
 	}
 
-	public static Integer contarRule(String atributoWhere, String stringPequisa) {
+	public Integer count(String atributoWhere, String stringPequisa) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return usuarioDAO.count(atributoWhere, stringPequisa);
+
+	}
+
+	public Integer countTable() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+		// então retorna true ou false para continuar a pesquisa.
+
+		return usuarioDAO.countTable();
+
+	}
+
+	@Override
+	public HashSet<Usuario> findInSet(Usuario usuario, String atributoWhere, String stringPequisa) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return UsuarioDAO.contarDao(atributoWhere, stringPequisa);
-
-	}
-
-	public static Integer contarRule() {
-
-		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
-		// então retorna true ou false para continuar a pesquisa.
-
-		return UsuarioDAO.contarDao();
-
+		return usuarioDAO.findInSet(usuario, atributoWhere, stringPequisa);
 	}
 
 }

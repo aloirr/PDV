@@ -5,9 +5,9 @@ import java.util.List;
 
 import control.rules.ProdutoRules;
 import model.Produto;
-import util.Iscanner;
+import util.Scan;
 
-public interface IlistarProdutosView extends Iscanner {
+public interface IlistarProdutosView extends Scan {
 
 	public static void run() {
 		Produto produto = new Produto();
@@ -30,6 +30,6 @@ public interface IlistarProdutosView extends Iscanner {
 
 			e.printStackTrace();
 		}
-		Iscanner.nextLine();
+		Scan.nextLine();
 	}
 }

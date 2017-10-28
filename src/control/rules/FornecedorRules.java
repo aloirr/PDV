@@ -1,51 +1,60 @@
 package control.rules;
 
-import java.util.List;
+import java.util.HashSet;
 
-import control.dao.ArmazemDAO;
 import control.dao.FornecedorDAO;
+import interfaces.IcontratoRules;
 import model.Fornecedor;
 
-public class FornecedorRules extends FornecedorDAO {
+public class FornecedorRules implements IcontratoRules<Fornecedor> {
 
-	public static String cadastrarRule(Fornecedor fornecedor) {
+	public String insert(Fornecedor fornecedor) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
+		Fornecedor obj = new Fornecedor();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios e
 		// retorna
-		if (FornecedorDAO.cadastrarDao(fornecedor) > 0) {
+		if (!fornecedorDAO.readTable(obj).stream()
+				.filter(p -> p.getRazaoSocial().matches(fornecedor.getRazaoSocial())).findAny()
+				.isPresent()) {
+			fornecedorDAO.insert(fornecedor);
 			return "Cadastro realizado com sucesso!";
 
 		} else {
-			return "Erro no cadastro! verifique as informações digitadas";
+			return "Cadastro não efetuado! Já existe um fornecedor com o nome: "
+					+ fornecedor.getRazaoSocial();
 		}
 
 	}
 
-	public static String alterarRule(Fornecedor fornecedor) {
+	public String update(Fornecedor fornecedor) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna o próprio objeto.
-		if (FornecedorDAO.alterarDao(fornecedor) > 0) {
+		if (fornecedorDAO.update(fornecedor) > 0) {
 			return "Alteração Realizado com sucesso!";
 
-		} else {f
+		} else {
 			return "Erro na alteração! verifique as informações digitadas";
 		}
 	}
 
-	public static List<Fornecedor> pesquisarRule(Fornecedor fornecedor, String atributoWhere,
+	public HashSet<Fornecedor> searchBy(Fornecedor fornecedor, String atributoWhere,
 			String stringPequisa) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return FornecedorDAO.pesquisarDao(fornecedor, atributoWhere, stringPequisa);
+		return fornecedorDAO.searchBy(fornecedor, atributoWhere, stringPequisa);
 
 	}
 
-	public static String deletarRule(String id) {
+	public String delete(String id) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		if (FornecedorDAO.deletarDao(id) > 0) {
+		if (fornecedorDAO.delete(id) > 0) {
 			return "id: " + id + " excluido com sucesso!";
 		} else {
 
@@ -53,29 +62,38 @@ public class FornecedorRules extends FornecedorDAO {
 		}
 	}
 
-	public static List<Fornecedor> listarRule(Fornecedor fornecedor) {
-		String table = "fornecedor";
+	public HashSet<Fornecedor> readTable(Fornecedor fornecedor) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar o delete.
-		return FornecedorDAO.listarDao(fornecedor, table);
+		return fornecedorDAO.readTable(fornecedor);
 	}
 
-	public static Integer contarRule(String atributoWhere, String stringPequisa) {
-
+	public Integer count(String atributoWhere, String stringPequisa) {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return FornecedorDAO.contarDao(atributoWhere, stringPequisa);
+		return fornecedorDAO.count(atributoWhere, stringPequisa);
 
 	}
 
-	public static Integer contarRule() {
-
+	public Integer countTable() {
+		FornecedorDAO fornecedorDAO = new FornecedorDAO();
 		// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
 		// então retorna true ou false para continuar a pesquisa.
 
-		return FornecedorDAO.contarDao();
+		return fornecedorDAO.countTable();
 
 	}
 
-}
+	@Override
+	public HashSet<Fornecedor> findInSet(Fornecedor fornecedor, String atributoWhere, String stringPequisa) {
+			FornecedorDAO fornecedorDAO = new FornecedorDAO();
+
+			// Verifica se os dados do objeto Usuario estão dentro das regras de negócios, e
+			// então retorna true ou false para continuar a pesquisa.
+
+			return fornecedorDAO.findInSet(fornecedor, atributoWhere, stringPequisa);
+		}
+	}

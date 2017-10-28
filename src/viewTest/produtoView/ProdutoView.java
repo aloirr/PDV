@@ -1,9 +1,9 @@
 package viewTest.produtoView;
 
-import util.Iscanner;
+import util.Scan;
 
 public class ProdutoView implements IcadastrarProdutoView, IconsultarProdutoView,
-		IalterarProdutoView, IexcluirProdutoView, IlistarProdutosView, Iscanner {
+		IalterarProdutoView, IexcluirProdutoView, IlistarProdutosView, Scan {
 
 	public void menuProduto() {
 		String opcao = "";
@@ -11,7 +11,7 @@ public class ProdutoView implements IcadastrarProdutoView, IconsultarProdutoView
 			System.out.println("Menu de produtos);\n" + "1) Cadastrar;\n" + "2) Consultar;\n"
 					+ "3) Alterar;\n" + "4) Excluir:\n" + "5) Listar:\n"
 					+ "6) Imprimir relação de produtos cadastrados\n" + "0) Sair do menu");
-			opcao = Iscanner.nextLine();
+			opcao = Scan.nextLine();
 			switch (opcao) {
 			case "1":
 				IcadastrarProdutoView.run();
