@@ -1,0 +1,143 @@
+SQLS DE CRIAÇÃO DE TABELA
+
+######## TABELA "armazem" ########
+
+CREATE TABLE IF NOT EXISTS armazem (
+id INT(10) NOT NULL AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######## TABELA "tiposdeestoque" ########
+
+CREATE TABLE IF NOT EXISTS tiposdeestoque (
+id INT(10) NOT NULL AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######## TABELA "estoque" ########
+
+CREATE TABLE IF NOT EXISTS estoque (
+id INT(10) NOT NULL AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+tipodeestoque_id INT(10) NOT NULL,
+armazem_id INT(10) NOT NULL,
+PRIMARY KEY (id)
+);
+
+Criando as chaves estrangeiras
+ALTER TABLE store.estoque ADD CONSTRAINT estoque_armazem_FK FOREIGN KEY (armazem_id) REFERENCES store.armazem(id) ;
+ALTER TABLE store.estoque ADD CONSTRAINT estoque_tiposdeestoque_FK FOREIGN KEY (tipodeestoque_id) REFERENCES store.tiposdeestoque(id) ;
+
+######## TABELA "usuario" ########
+
+CREATE TABLE IF NOT EXISTS usuario (
+id INT(10) NOT NULL AUTO_INCREMENT,
+senha VARCHAR(100) NOT NULL,
+nome VARCHAR(100) NOT NULL,
+cpf INT(20) NOT NULL,
+endereco VARCHAR(100) NOT NULL,
+telefone VARCHAR(100) NOT NULL,
+login VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######## TABELA "estacao" #########
+
+CREATE TABLE IF NOT EXISTS estacao (
+id INT(10) NOT NULL AUTO_INCREMENT,
+ip VARCHAR(100) NOT NULL,
+status VARCHAR(100) NOT NULL,
+infoAdicional INT(20) NOT NULL,
+nome VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######## TABELA "fornecedor" #########
+
+CREATE TABLE IF NOT EXISTS fornecedor (
+id INT(10) NOT NULL AUTO_INCREMENT,
+razaoSocial VARCHAR(100) NOT NULL,
+cpf VARCHAR(100) NOT NULL,
+cnpj VARCHAR(100) NOT NULL,
+inscMunic VARCHAR(100) NOT NULL,
+inscSuframa VARCHAR(100) NOT NULL,
+nomeFantasia VARCHAR(100) NOT NULL,
+endereco VARCHAR(100) NOT NULL,
+telefone VARCHAR(100) NOT NULL,
+nomeContato VARCHAR(100) NOT NULL,
+email VARCHAR(100) NOT NULL,
+prazo VARCHAR(100) NOT NULL,
+representante VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######## TABELA "produto" #########
+
+CREATE TABLE `produto` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `unidadeMedida` varchar(10) NOT NULL,
+  `tipoEmbalagem` varchar(10) DEFAULT NULL,
+  `qtdPorEmbalagem` int(11) DEFAULT NULL,
+  `fornecedor` varchar(100) DEFAULT NULL,
+  `armazem` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+  );
+  
+ ALTER TABLE store.produto ADD CONSTRAINT produto_embalagem_FK FOREIGN KEY (tipoEmbalagem) REFERENCES store.embalagem(id) ;
+  
+######### TABELA "cliente" ##########
+
+CREATE TABLE `clientes` (
+  `razaoSocial` varchar(100) NOT NULL,
+  `nomeFantasia` varchar(100) NOT NULL,
+  `endereco` varchar(100) NOT NULL,
+  `telefone` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `nomeContato` varchar(100) DEFAULT NULL,
+  `prazo` varchar(100) DEFAULT NULL,
+  `cpf` varchar(11) DEFAULT NULL,
+  `cnpj` varchar(15) DEFAULT NULL,
+  `inscEstadual` varchar(100) DEFAULT NULL,
+  `inscMunic` varchar(100) DEFAULT NULL,
+  `inscSuframa` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+);
+
+######### TABELA "embalagem" #########
+
+CREATE TABLE IF NOT EXISTS embalagem (
+id INT(10) NOT NULL,
+nome VARCHAR(100) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######### TABELA "menu" ########
+CREATE TABLE IF NOT EXISTS menu (
+id INT(10) NOT NULL AUTO_INCREMENT,
+titulo VARCHAR(100) NOT NULL,
+campos VARCHAR(10000) NOT NULL,
+PRIMARY KEY (id)
+);
+
+######### TABELA "funcao" ########
+CREATE TABLE IF NOT EXISTS funcao (
+id INT(10) NOT NULL AUTO_INCREMENT,
+idMenu INT(10),
+cod_permissao_usuario INT(10),  
+descricao VARCHAR(200) NOT NULL,
+PRIMARY KEY (id)
+);
+
+
+CREATE TABLE `menu` (
+  `menu_Label` varchar(255) DEFAULT NULL,
+  `menu_Descricao` varchar(255) DEFAULT NULL,
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `idMenuPai` int(255) DEFAULT NULL,
+  `ordem` int(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1
